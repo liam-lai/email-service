@@ -18,8 +18,9 @@ exports.sendEmail = async (req) => {
       username: config.mailgun.apiKey.username,
       password: config.mailgun.apiKey.password
     },
-    url: config.mailgun.url
-  };
+    url: config.mailgun.url,
+    timeout: config.mailgun.timeout * 1000
+  }
   try {
     res = await axios(options)
     return res.status
