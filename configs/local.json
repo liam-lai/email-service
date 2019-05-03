@@ -3,6 +3,8 @@
   "logLevel": "dev",
   "mailgun": {
     "url": "https://api.mailgun.net/v3/sandboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org/messages",
+    "statusUrl": "https://status.mailgun.com/api/v2/status.json",
+    "statusPage": "https://status.mailgun.com",
     "apiKey": {
       "username": "_ENV mailgun_apikey_username",
       "password": "_ENV mailgun_apikey_password"
@@ -11,5 +13,8 @@
     "timeout": 10,
     "_comment": "sec level for timeout"
   },
-  "sendgrid": {}
+  "sendgrid": {
+    "statusUrl": "https://status.sendgrid.com/api/v2/status.json",
+    "statusPage": "https://status.sendgrid.com"
+  }
 }
