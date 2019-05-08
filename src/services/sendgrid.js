@@ -1,4 +1,4 @@
-const sendgridConfig = require('../config').get().sendgrid
+const sendgridConfig = require('../config').sendgrid
 const axios = require('axios')
 const helper = require('./helper')
 const serviceStatus = { website: {}, lastSend: {} }

@@ -1,4 +1,4 @@
-const mailgunConfig = require('../config').get().mailgun
+const mailgunConfig = require('../config').mailgun
 const helper = require('./helper')
 const axios = require('axios')
 var FormData = require('form-data')

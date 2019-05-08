@@ -1,8 +1,8 @@
 {
   "port": 3000,
-  "logLevel": "dev",
+  "logLevel": "production",
   "schedule": {
-    "checkStatus": "0 */3 * * * *"
+    "checkStatus": "0 */5 * * * *"
   },
   "mailgun": {
     "url": "https://api.mailgun.net/v3/sanboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org/messages",

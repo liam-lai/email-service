@@ -3,7 +3,7 @@ const emailRouter = require('./routes/email');
 const statusRouter = require('./routes/status');
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
-const config = require('./config').get()
+const config = require('./config')
 const app = express()
 const scheduler = require('./scheduler')
 
