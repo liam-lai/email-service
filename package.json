@@ -14,12 +14,14 @@
     "node-cron": "^2.0.3"
   },
   "devDependencies": {
-    "dotenv": "^8.0.0"
+    "dotenv": "^8.0.0",
+    "nodemon": "^1.19.0"
   },
   "engines": {
     "node": ">= 10.15.1"
   },
   "scripts": {
+    "dev": "./node_modules/.bin/nodemon src/start.js",
     "start": "node src/start.js",
     "lint": "eslint .",
     "test": "mocha --require test/support/env --reporter spec --bail --check-leaks test/ test/acceptance/"

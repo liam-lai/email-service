@@ -1,9 +1,9 @@
 var cron = require('node-cron')
 const mailgun = require('./services/mailgun')
 const sendgrid = require('./services/sendgrid')
+const config = require('./config').get().schedule
 //every 5 mins
-cron.schedule('0 */5 * * * *', async () => {
-  console.log('checkStatus');
+cron.schedule(config.checkStatus, async () => {
   try {
     await mailgun.checkStatus()
     await sendgrid.checkStatus()

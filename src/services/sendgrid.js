@@ -1,61 +1,76 @@
-const config = require('../config').get()
+const sendgridConfig = require('../config').get().sendgrid
 const axios = require('axios')
-var FormData = require('form-data')
-var sendgridStatus = 'Pending'
+const helper = require('./helper')
+const serviceStatus = { website: {}, lastSend: {} }
 
-exports.sendEmail = async (req) => {
-  const data = new FormData()
-  data.append('from', config.mailgun.sender)
-  data.append('to', req.body.recipients)
-  data.append('subject', req.body.subject)
-  data.append('text', req.body.text)
+const options = {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json',
+    'Authorization': `Bearer ${sendgridConfig.apiKey.bearer}`
+  },
+  url: sendgridConfig.url,
+  timeout: sendgridConfig.timeout * 1000
+}
 
-  const options = {
-    method: 'POST',
-    headers: { 'content-type': `multipart/form-data; boundary=${data._boundary}` },
-    data,
-    auth: {
-      username: config.mailgun.apiKey.username,
-      password: config.mailgun.apiKey.password
-    },
-    url: config.mailgun.url,
-    timeout: config.mailgun.timeout * 1000
-  }
+const sendEmail = async (req) => {
+  options.data = fillData(req)
+  var result = 'fail'
   try {
     res = await axios(options)
-    return res.status
+    result = helper.getResult(res)
+    helper.setSendingStatus(serviceStatus, result)
+    return result
   }
   catch (e) {
+    helper.setSendingStatus(serviceStatus, result)
     console.log(e)
-    return e
+    return result
   }
 }
 
-exports.getStatus = () => {
-  return sendgridStatus
+const getStatus = () => {
+  return serviceStatus
 }
 
-const setStatus = (status) => {
-  status.lastUpdate = new Date() + " UTC"
-  status.url = config.sendgrid.statusPage
-  sendgridStatus = status
-}
-
-exports.checkStatus = async () => {
+const checkStatus = async () => {
   const options = {
     method: 'GET',
-    url: config.sendgrid.statusUrl
+    url: sendgridConfig.status.url
   };
   res = await axios(options)
-  setStatus(res.data.status)
+  helper.setStatus(serviceStatus, res.data.status, sendgridConfig.status)
 }
 
-req = {
-  from: 'Excited User <mailgun@sandboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org>',
-  to: 'liam.icheng.lai@gmail.com',
-  subject: 'Hello',
-  text: 'axios'
+const fillData = (req) => {
+  const body = {}
+  body.personalizations = [{ to: [] }]
+  body.from = { email: sendgridConfig.sender }
+  body.subject = req.body.subject
+  body.content = [{ type: "text/plain", value: req.body.text }]
+
+  req.body.recipients.map((recipient) => {
+    body.personalizations[0].to.push({ email: recipient })
+  })
+
+  if (req.body.ccs.length > 0) {
+    body.personalizations[0].cc = []
+    req.body.ccs.map((cc) => {
+      body.personalizations[0].cc.push({ email: cc })
+    })
+  }
+
+  if (req.body.bccs.length > 0) {
+    body.personalizations[0].bcc = []
+    req.body.bccs.map((bcc) => {
+      body.personalizations[0].bcc.push({ email: bcc })
+    })
+  }
+  return body
 }
 
-//sendEmail(req)
-//getStatus()
+module.exports = {
+  sendEmail,
+  getStatus,
+  checkStatus
+}

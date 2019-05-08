@@ -1,34 +1,52 @@
-const config = require('../config').get()
+const mailgunConfig = require('../config').get().mailgun
+const helper = require('./helper')
 const axios = require('axios')
 var FormData = require('form-data')
-var mailgunStatus = 'Pending'
+const serviceStatus = { website: {}, lastSend: {} }
 
-exports.sendEmail = async (req) => {
-  const data = fillData(req)
-  const options = {
-    method: 'POST',
-    headers: { 'content-type': `multipart/form-data; boundary=${data._boundary}` },
-    data,
-    auth: {
-      username: config.mailgun.apiKey.username,
-      password: config.mailgun.apiKey.password
-    },
-    url: config.mailgun.url,
-    timeout: config.mailgun.timeout * 1000
-  }
+const options = {
+  method: 'POST',
+  auth: {
+    username: mailgunConfig.apiKey.username,
+    password: mailgunConfig.apiKey.password
+  },
+  url: mailgunConfig.url,
+  timeout: mailgunConfig.timeout * 1000
+}
+
+const sendEmail = async (req) => {
+  options.data = fillData(req)
+  options.headers = { 'content-type': `multipart/form-data; boundary=${options.data._boundary}` }
+  var result = 'fail'
   try {
     res = await axios(options)
-    return res.status
+    result = helper.getResult(res)
+    helper.setSendingStatus(serviceStatus, result)
+    return result
   }
   catch (e) {
-    console.log(e)
-    return e
+    helper.setSendingStatus(serviceStatus, result)
+    //LOG
+    return result
   }
+}
+
+const getStatus = () => {
+  return serviceStatus
+}
+
+const checkStatus = async () => {
+  const options = {
+    method: 'GET',
+    url: mailgunConfig.status.url
+  };
+  res = await axios(options)
+  helper.setStatus(serviceStatus, res.data.status, mailgunConfig.status)
 }
 
 const fillData = (req) => {
   const data = new FormData()
-  data.append('from', config.mailgun.sender)
+  data.append('from', mailgunConfig.sender)
   data.append('subject', req.body.subject)
   data.append('text', req.body.text)
   req.body.recipients.map((recipient) => {
@@ -43,21 +61,8 @@ const fillData = (req) => {
   return data
 }
 
-exports.getStatus = () => {
-  return mailgunStatus
-}
-
-const setStatus = (status) => {
-  status.lastUpdate = new Date() + " UTC"
-  status.url = config.mailgun.statusPage
-  mailgunStatus = status
-}
-
-exports.checkStatus = async () => {
-  const options = {
-    method: 'GET',
-    url: 'https://status.mailgun.com/api/v2/status.json'
-  };
-  res = await axios(options)
-  setStatus(res.data.status)
+module.exports = {
+  sendEmail,
+  getStatus,
+  checkStatus
 }

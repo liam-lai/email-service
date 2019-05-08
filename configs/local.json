@@ -1,20 +1,36 @@
 {
   "port": 3000,
   "logLevel": "dev",
+  "schedule": {
+    "checkStatus": "0 */5 * * * *"
+  },
   "mailgun": {
-    "url": "https://api.mailgun.net/v3/sandboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org/messages",
-    "statusUrl": "https://status.mailgun.com/api/v2/status.json",
-    "statusPage": "https://status.mailgun.com",
+    "url": "https://api.mailgun.net/v3/sanboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org/messages",
     "apiKey": {
-      "username": "_ENV mailgun_apikey_username",
-      "password": "_ENV mailgun_apikey_password"
+      "username": "api",
+      "password": "_ENV MAILGUN_API_KEY"
     },
-    "sender": "Excited User <mailgun@sandboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org>",
+    "status": {
+      "okDescription": "All Systems Operational",
+      "url": "https://status.mailgun.com/api/v2/status.json",
+      "page": "https://status.mailgun.com"
+    },
+    "sender": "Liam Lai <mailgun@sandboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org>",
     "timeout": 10,
     "_comment": "sec level for timeout"
   },
   "sendgrid": {
-    "statusUrl": "https://status.sendgrid.com/api/v2/status.json",
-    "statusPage": "https://status.sendgrid.com"
+    "url": "https://api.sendgrid.com/v3/mail/send",
+    "apiKey": {
+      "bearer": "_ENV SENDGRID_API_KEY"
+    },
+    "status": {
+      "okDescription": "All Systems Operational",
+      "url": "https://status.sendgrid.com/api/v2/status.json",
+      "page": "https://status.sendgrid.com"
+    },
+    "sender": "Liam Lai <liam@coding.test.com>",
+    "timeout": 10,
+    "_comment": "sec level for timeout"
   }
 }

@@ -8,8 +8,8 @@ exports.status = (req, res) => {
   res.send(
     {
       _self: {
-        status: "OK",
-        version: "0.0.1"
+        status: 'ok',
+        version: '0.0.1'
       },
       mailgun: mailgunStatus,
       sendgrid: sendgridStatus

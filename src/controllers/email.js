@@ -1,24 +1,25 @@
 const input = require('../middleware/validate')
-const mailgun = require('../services/mailgun')
-const sendgrid = require('../services/sendgrid')
+const mailService = require('../services')
 
 exports.send = async (req, res) => {
-  console.dir(req.body);
-  try {
-    const mailgunStatus = await mailgun.sendEmail(req)
-    console.log('mailgunStatus: ', mailgunStatus);
-    if (mailgunStatus == 200) {
-      res.sendStatus(mailgunStatus)
-      return
+  const mailServiceList = mailService.getList()
+
+  var sendingStatus = 'fail'
+  for (var i in mailServiceList) {
+    resource = mailServiceList[i]
+    try {
+      const status = await resource.sendEmail(req)
+      if (status === 'ok') {
+        sendingStatus = status
+        break
+      }
+    } catch (e) {
+      console.log('e: ', e);
     }
-    const sendgridStatus = await sendgrid.send(req)
-    if (sendgridStatus == 'OK') {
-      return
-    }
-  } catch (e) {
-    res.sendStatus(503)
-    return e
   }
+  res.json({
+    status: sendingStatus
+  })
 }
 
 /*
