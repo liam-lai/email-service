@@ -57,9 +57,9 @@ yarn start
 * POST /v1/send
 ```json
 {
-    "recipients": ["liam.icheng.lai@gmail.com"],
-	  "ccs": [],
-    "bccs":[],
+    "recipients": ["coding.test@gmail.com"],
+    "ccs": ["coding.test@gmail.com"],  //optional
+    "bccs": ["coding.test@gmail.com"],  //optional
     "subject": "this is subject and maximum length based on config",
     "text": "this is text and maximum length based on config"
 }
@@ -68,6 +68,7 @@ yarn start
 ### Service Status
 
 * GET /v1/status
+
 Including service status and vender status with last sending record.
 Status gets from periodically check provider, help to decide which provider to go.
 
