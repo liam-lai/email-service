@@ -5,10 +5,10 @@
     "checkStatus": "0 */3 * * * *"
   },
   "mailgun": {
-    "url": "https://api.mailgun.net/v3/sanboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org/messages",
+    "url": "https://test.ci",
     "apiKey": {
       "username": "api",
-      "password": "_ENV MAILGUN_API_KEY"
+      "password": "password"
     },
     "status": {
       "okDescription": "All Systems Operational",
@@ -20,9 +20,9 @@
     "_comment": "sec level for timeout"
   },
   "sendgrid": {
-    "url": "https://api.sendgri.com/v3/mail/send",
+    "url": "https://test.ci",
     "apiKey": {
-      "bearer": "_ENV SENDGRID_API_KEY"
+      "bearer": "password"
     },
     "status": {
       "okDescription": "All Systems Operational",

@@ -1,5 +1,6 @@
+const vender = 'sendgrid'
 const sendgridConfig = require('../config').sendgrid
-const axios = require('axios')
+const axios = require('../axios-client')
 const helper = require('./helper')
 const serviceStatus = { website: {}, lastSend: {} }
 
@@ -15,9 +16,9 @@ const options = {
 
 const sendEmail = async (req) => {
   options.data = fillData(req)
-  var result = 'fail'
+  var result = 'error'
   try {
-    res = await axios(options)
+    res = await axios.client(options)
     result = helper.getResult(res)
     helper.setSendingStatus(serviceStatus, result)
     return result
@@ -29,6 +30,10 @@ const sendEmail = async (req) => {
   }
 }
 
+const getVender = () => {
+  return vender
+}
+
 const getStatus = () => {
   return serviceStatus
 }
@@ -38,39 +43,46 @@ const checkStatus = async () => {
     method: 'GET',
     url: sendgridConfig.status.url
   };
-  res = await axios(options)
-  helper.setStatus(serviceStatus, res.data.status, sendgridConfig.status)
+  try {
+    res = await axios.client(options)
+    helper.setStatus(serviceStatus, res.data.status, sendgridConfig.status)
+  } catch (e) {
+    console.log('e: ', e);
+    serviceStatus.status = 'error'
+  }
 }
 
 const fillData = (req) => {
-  const body = {}
-  body.personalizations = [{ to: [] }]
-  body.from = { email: sendgridConfig.sender }
-  body.subject = req.body.subject
-  body.content = [{ type: "text/plain", value: req.body.text }]
+  const data = {
+    personalizations: [{ to: [] }],
+    from: { email: sendgridConfig.sender },
+    subject: req.body.subject,
+    content: [{ type: "text/plain", value: req.body.text }]
+  }
 
   req.body.recipients.map((recipient) => {
-    body.personalizations[0].to.push({ email: recipient })
+    data.personalizations[0].to.push({ email: recipient })
   })
 
-  if (req.body.ccs.length > 0) {
-    body.personalizations[0].cc = []
+  if (req.body.ccs != undefined && req.body.ccs.length > 0) {
+    data.personalizations[0].cc = []
     req.body.ccs.map((cc) => {
-      body.personalizations[0].cc.push({ email: cc })
+      data.personalizations[0].cc.push({ email: cc })
     })
   }
 
-  if (req.body.bccs.length > 0) {
-    body.personalizations[0].bcc = []
+  if (req.body.bccs != undefined && req.body.bccs.length > 0) {
+    data.personalizations[0].bcc = []
     req.body.bccs.map((bcc) => {
-      body.personalizations[0].bcc.push({ email: bcc })
+      data.personalizations[0].bcc.push({ email: bcc })
     })
   }
-  return body
+  return data
 }
 
 module.exports = {
   sendEmail,
+  getVender,
   getStatus,
   checkStatus
 }

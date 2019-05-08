@@ -2,19 +2,22 @@ const getResult = (res) => {
   if (res.status >= 200 && res.status < 400) {
     return 'ok'
   }
-  return 'fail'
+  return 'error'
 }
 
 const setStatus = (serviceStatus, status, { page, okDescription }) => {
-  serviceStatus.website.lastUpdate = new Date() + " UTC"
-  serviceStatus.website.page = page
-  serviceStatus.website.description = status.description
-  serviceStatus.website.indicator = status.indicator
+  serviceStatus.website = {
+    lastUpdate: new Date() + " UTC",
+    page: page,
+    description: status.description,
+    indicator: status.indicator
+  }
   if (serviceStatus.website.description == okDescription) {
     serviceStatus.website.status = 'ok'
     serviceStatus.status = 'ok'
   } else {
     serviceStatus.website.status = 'error'
+    serviceStatus.status = 'error'
   }
 }
 

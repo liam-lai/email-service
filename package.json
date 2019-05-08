@@ -8,14 +8,19 @@
   "dependencies": {
     "axios": "^0.18.0",
     "express": "^4.16.4",
+    "express-validation": "^1.0.2",
     "express-validator": "^5.3.1",
     "form-data": "^2.3.3",
+    "joi": "^14.3.1",
     "morgan": "^1.9.1",
     "node-cron": "^2.0.3"
   },
   "devDependencies": {
+    "assert": "^1.5.0",
     "dotenv": "^8.0.0",
-    "nodemon": "^1.19.0"
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.0",
+    "sinon": "^7.3.2"
   },
   "engines": {
     "node": ">= 10.15.1"
@@ -24,6 +29,6 @@
     "dev": "./node_modules/.bin/nodemon src/start.js",
     "start": "node src/start.js",
     "lint": "eslint .",
-    "test": "mocha --require test/support/env --reporter spec --bail --check-leaks test/ test/acceptance/"
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --timeout 10000 tests/**/*"
   }
 }

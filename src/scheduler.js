@@ -4,6 +4,7 @@ const sendgrid = require('./services/sendgrid')
 const config = require('./config').schedule
 //every 5 mins
 cron.schedule(config.checkStatus, async () => {
+  //TODO Promise ALL
   try {
     await mailgun.checkStatus()
     await sendgrid.checkStatus()
@@ -13,6 +14,7 @@ cron.schedule(config.checkStatus, async () => {
 })
 
 exports.init = async () => {
+  //TODO Promise ALL
   try {
     await mailgun.checkStatus()
     await sendgrid.checkStatus()

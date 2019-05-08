@@ -1,9 +1,9 @@
+const validate = require('express-validation')
+const validations = require('./validate')
 
-'use strict';
+const app = require('express').Router()
+const email = require('../controllers/email')
 
-const app = require('express').Router();
-const email = require('../controllers/email');
+app.post('/v1/send', validate(validations.send), email.send)
 
-app.post('/v1/send', email.send)
-
-module.exports = app;
+module.exports = app
