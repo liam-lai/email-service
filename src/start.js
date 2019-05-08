@@ -23,4 +23,6 @@ app.use((err, req, res, next) => {
       })
   }
 })
+
+console.log('start listening port', config.port);
 app.listen(config.port)

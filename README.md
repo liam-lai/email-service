@@ -6,10 +6,18 @@ Email api service that integrated with Mailgun and Sendgrid.
 ## Requirements
 - Node.js version 10.15.1: `nvm use`
 
+## Quick Setup Local Environment
+```
+yarn
+export MAILGUN_API_KEY='YOUR MAIL GUN API KEY'
+export SENDGRID_API_KEY='YOUR SENDGRID Bear Token'
+yarn dev
+```
+
 ## Setup Node Library
 * Node Library
 ```
-  yarn
+yarn
 ```
 
 * Env Variable
@@ -19,19 +27,25 @@ MAILGUN_API_KEY='YOUR MAIL GUN API KEY'
 SENDGRID_API_KEY='YOUR SENDGRID Bear Token'
 EOF
 ```
+or 
+```
+export MAILGUN_API_KEY='YOUR MAIL GUN API KEY'
+export SENDGRID_API_KEY='YOUR SENDGRID Bear Token'
+```
+
 
 ## Running the service
-* Run Test  
+* Run Test
 ```
 yarn test
 ```
 
-* Run Local Dev Environment 
+* Run Local Dev Environment
 ```
 yarn dev
 ```
 
-* Run Production Environment 
+* Run Production Environment
 ```
 yarn start
 ```
@@ -64,5 +78,5 @@ Status gets from periodically check provider, help to decide which provider to g
 * Test: End-to-End, input validation
 * Optimize failover strategy, choose the faster provider based on certain threshold
 * API Document: Swagger
-* Dockerize 
+* Dockerizeq
 * CICD Deployment
