@@ -10,10 +10,13 @@ exports.send = async (req, res) => {
       const status = await resource.sendEmail(req)
       if (status === 'ok') {
         sendingStatus = status
+        resource.getVender
+        console.log('send successfully by', resource.getVender())
         break
       }
     } catch (e) {
-      console.log('e: ', e);
+      sendingStatus = 503
+      console.log('e: ', e)
     }
   }
   if (sendingStatus === 'ok') {
@@ -21,7 +24,7 @@ exports.send = async (req, res) => {
       status: sendingStatus
     })
   } else {
-    res.status(500).json({
+    res.status(503).json({
       status: 'error'
     })
   }

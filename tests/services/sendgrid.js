@@ -18,7 +18,7 @@ describe('sendgrid services', () => {
         status: 200,
         data: { status: 'test' }
       })
-  });
+  })
 
   afterEach(() => {
     axios.client.restore()
@@ -41,23 +41,23 @@ describe('sendgrid services', () => {
           'Authorization': `Bearer password`
         },
       })
-    });
-  });
+    })
+  })
 
   describe('getVender()', () => {
     it('should return sendgrid', () => {
       assert.equal(sendgrid.getVender(), 'sendgrid')
-    });
-  });
+    })
+  })
   describe('status()', () => {
     it('should get lastSend status after sending email', async () => {
       await sendgrid.sendEmail(mockReq)
       assert.equal(sendgrid.getStatus().lastSend.status, 'ok')
-    });
+    })
 
     it('should get status after checkStatus', async () => {
       await sendgrid.checkStatus()
       assert(sendgrid.getStatus().status)
-    });
-  });
-});
+    })
+  })
+})

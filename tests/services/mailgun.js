@@ -18,7 +18,7 @@ describe('mailgun services', () => {
         status: 200,
         data: { status: 'test' }
       })
-  });
+  })
 
   afterEach(() => {
     axios.client.restore()
@@ -35,24 +35,24 @@ describe('mailgun services', () => {
         },
         url: 'https://test.ci'
       })
-    });
-  });
+    })
+  })
 
   describe('getVender()', () => {
     it('should return mailgun', () => {
       assert.equal(mailgun.getVender(), 'mailgun')
-    });
-  });
+    })
+  })
   describe('status()', () => {
 
     it('should get lastSend status after sending email', async () => {
       await mailgun.sendEmail(mockReq)
       assert.equal(mailgun.getStatus().lastSend.status, 'ok')
-    });
+    })
 
     it('should get status after checkStatus', async () => {
       await mailgun.checkStatus()
       assert(mailgun.getStatus().status)
-    });
-  });
-});
+    })
+  })
+})

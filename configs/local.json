@@ -7,7 +7,7 @@
   "subjectLength": 50,
   "textLength": 50000,
   "mailgun": {
-    "url": "https://api.mailgun.net/v3/sanboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org/messages",
+    "url": "https://api.mailgun.net/v3/sandboxe7fb8aecdc6547d88fa7ddbfd86d286f.mailgun.org/messages",
     "apiKey": {
       "username": "api",
       "password": "_ENV MAILGUN_API_KEY"
@@ -22,7 +22,7 @@
     "_comment": "sec level for timeout"
   },
   "sendgrid": {
-    "url": "https://api.sendgri.com/v3/mail/send",
+    "url": "https://api.sendgrid.com/v3/mail/send",
     "apiKey": {
       "bearer": "_ENV SENDGRID_API_KEY"
     },

@@ -26,9 +26,9 @@ const sendEmail = async (req) => {
     return result
   }
   catch (e) {
-    console.log('e: ', e);
+    //Todo Log error
+    console.log('e: ', e)
     helper.setSendingStatus(serviceStatus, result)
-    //LOG
     return result
   }
 }
@@ -45,12 +45,12 @@ const checkStatus = async () => {
   const options = {
     method: 'GET',
     url: mailgunConfig.status.url
-  };
+  }
   try {
     res = await axios.client(options)
     helper.setStatus(serviceStatus, res.data.status, mailgunConfig.status)
   } catch (e) {
-    console.log('e: ', e);
+    console.log('e: ', e)
     serviceStatus.status = 'error'
   }
 }

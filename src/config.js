@@ -1,5 +1,5 @@
-const environment = process.env.NODE_ENV || 'local';
-const config = require(`../configs/${environment}.json`);
+const environment = process.env.NODE_ENV || 'local'
+const config = require(`../configs/${environment}.json`)
 if (environment === 'local') {
   require('dotenv').config()
 }

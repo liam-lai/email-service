@@ -11,4 +11,4 @@ module.exports = {
       text: Joi.string().max(config.textLength).required()
     }
   }
-};
+}

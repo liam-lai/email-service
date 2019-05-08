@@ -9,7 +9,7 @@ cron.schedule(config.checkStatus, async () => {
     await mailgun.checkStatus()
     await sendgrid.checkStatus()
   } catch (e) {
-    console.log('e: ', e);
+    console.log('e: ', e)
   }
 })
 
@@ -19,6 +19,6 @@ exports.init = async () => {
     await mailgun.checkStatus()
     await sendgrid.checkStatus()
   } catch (e) {
-    console.log('e: ', e);
+    console.log('e: ', e)
   }
 }
