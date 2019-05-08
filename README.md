@@ -1,10 +1,24 @@
 # email-service
-Mailgun and Sendgrid integrated service
+Email api service that integrated with Mailgun and Sendgrid.
+* Sending group mails with main receivers, ccs and bccs.
+* Plain Text available only
 
-# mailgun status page and api
-* https://status.mailgun.com/
-* https://status.mailgun.com/api/v2/status.json
+## API
 
-# sendgrid status page
-* https://status.sendgrid.com/api/v2/status.json
+### Send Email
 
+* POST /v1/send
+```json
+{
+    "recipients": ["liam.icheng.lai@gmail.com"],
+	  "ccs": [],
+    "bccs":[],
+    "subject": "this is subject and maximum length based on config",
+    "text": "this is text and maximum length based on config"
+}
+```
+
+### Service Status
+
+* GET /v1/status
+Including service status and vender status with last sending record

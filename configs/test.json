@@ -4,6 +4,8 @@
   "schedule": {
     "checkStatus": "0 */3 * * * *"
   },
+  "subjectLength": 50,
+  "textLength": 50000,
   "mailgun": {
     "url": "https://test.ci",
     "apiKey": {
