@@ -65,12 +65,33 @@ yarn start
 }
 ```
 
+example with curl:
+```
+curl -X POST \
+  http://35.166.20.191:8000/v1/send \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "recipients": ["liam.icheng.lai@gmail.com"],
+	"ccs": [],
+    "bccs":[],
+    "subject": "postman",
+    "text": "from post man"
+}'
+```
+
+
 ### Service Status
 
 * GET /v1/status
 
 Including service status and vender status with last sending record.
 Status gets from periodically check provider, help to decide which provider to go.
+
+example with curl:
+```
+curl -X GET \
+  http://35.166.20.191:8000/v1/status
+```
 
 ## Todo list
 
