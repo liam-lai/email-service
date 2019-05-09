@@ -14,7 +14,7 @@ export SENDGRID_API_KEY='YOUR SENDGRID Bear Token'
 yarn start
 ```
 
-## Quick Playwith it
+## Quick Play with
 ```
 curl -X POST http://35.166.20.191:8000/v1/send \
   -H 'Content-Type: application/json' \
