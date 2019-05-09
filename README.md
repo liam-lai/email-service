@@ -72,7 +72,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -d '{
     "recipients": ["liam.icheng.lai@gmail.com"],
-	"ccs": [],
+    "ccs": [],
     "bccs":[],
     "subject": "postman",
     "text": "from post man"
@@ -89,8 +89,7 @@ Status gets from periodically check provider, help to decide which provider to g
 
 example with curl:
 ```
-curl -X GET \
-  http://35.166.20.191:8000/v1/status
+curl -X GET http://35.166.20.191:8000/v1/status
 ```
 
 ## Todo list

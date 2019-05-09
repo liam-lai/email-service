@@ -24,11 +24,11 @@ describe('mail services', function() {
     afterEach(() => {
       axios.client.restore()
     })
-    it('should mailgun then sendgrid after getting health status', async function() {
-      await mailgun.checkStatus()
+    it('should sendgrid then mailgun after getting health status', async function() {
+      await sendgrid.checkStatus()
       mailServiceList = mailServices.getList()
-      assert.equal(mailServiceList[0].getVender(), 'mailgun')
-      assert.equal(mailServiceList[1].getVender(), 'sendgrid')
+      assert.equal(mailServiceList[0].getVender(), 'sendgrid')
+      assert.equal(mailServiceList[1].getVender(), 'mailgun')
     })
   })
   describe('getList if mailgun status is wrong', function() {
@@ -46,11 +46,11 @@ describe('mail services', function() {
     afterEach(() => {
       axios.client.restore()
     })
-    it('should sendgrid then mailgun if status is wrong', async function() {
-      await mailgun.checkStatus()
+    it('should mailgun then sendgrid if status is wrong', async function() {
+      await sendgrid.checkStatus()
       mailServiceList = mailServices.getList()
-      assert.equal(mailServiceList[0].getVender(), 'sendgrid')
-      assert.equal(mailServiceList[1].getVender(), 'mailgun')
+      assert.equal(mailServiceList[0].getVender(), 'mailgun')
+      assert.equal(mailServiceList[1].getVender(), 'sendgrid')
     })
   })
 })
