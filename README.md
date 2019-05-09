@@ -33,8 +33,10 @@ curl -X POST http://35.166.20.191:8000/v1/send \
 yarn
 ```
 
-* Env Variable
+* Env Variable 
+
 ```
+//DEV ONLY
 cat > .env <<EOF
 MAILGUN_API_KEY='YOUR MAIL GUN API KEY'
 SENDGRID_API_KEY='YOUR SENDGRID Bear Token'
@@ -57,10 +59,14 @@ yarn test
 ```
 yarn dev
 ```
+or
+```
+yarn start
+```
 
 * Run Production Environment
 ```
-yarn start
+NODE_ENV=production yarn start
 ```
 
 ## API
