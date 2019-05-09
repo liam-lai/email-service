@@ -1,6 +1,6 @@
 {
   "port": 8000,
-  "logLevel": "production",
+  "logLevel": "combined",
   "schedule": {
     "checkStatus": "0 */5 * * * *"
   },
