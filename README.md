@@ -6,12 +6,25 @@ Email api service that integrated with Mailgun and Sendgrid.
 ## Requirements
 - Node.js version 10.15.1: `nvm use`
 
-## Quick Setup Local Environment
+## Quick Setup Environment
 ```
 yarn
 export MAILGUN_API_KEY='YOUR MAIL GUN API KEY'
 export SENDGRID_API_KEY='YOUR SENDGRID Bear Token'
-yarn dev
+yarn start
+```
+
+## Quick Playwith it
+```
+curl -X POST http://35.166.20.191:8000/v1/send \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "recipients": ["your@email.address"],
+    "ccs": [],
+    "bccs":[],
+    "subject": "test email service",
+    "text": "my email draft"
+}'
 ```
 
 ## Setup Node Library
@@ -68,7 +81,7 @@ yarn start
 example with curl:
 ```
 curl -X POST \
-  http://35.166.20.191:8000/v1/send \
+  localhost/v1/send \
   -H 'Content-Type: application/json' \
   -d '{
     "recipients": ["liam.icheng.lai@gmail.com"],
@@ -89,7 +102,7 @@ Status gets from periodically check provider, help to decide which provider to g
 
 example with curl:
 ```
-curl -X GET http://35.166.20.191:8000/v1/status
+curl -X GET localhost/v1/status
 ```
 
 ## Todo list
