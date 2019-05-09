@@ -1,5 +1,5 @@
 {
-  "port": 3000,
+  "port": 8000,
   "logLevel": "production",
   "schedule": {
     "checkStatus": "0 */5 * * * *"
