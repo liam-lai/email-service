@@ -9,6 +9,8 @@ Email api service that integrated with Mailgun and Sendgrid.
 ## Quick Setup Environment
 ```
 git clone https://github.com/liam-lai/email-service.git
+cd email-service
+nvm use
 yarn
 export MAILGUN_API_KEY='YOUR MAIL GUN API KEY'
 export SENDGRID_API_KEY='YOUR SENDGRID Bear Token'
